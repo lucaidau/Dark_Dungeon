@@ -1,6 +1,7 @@
-[gd_scene load_steps=56 format=3 uid="uid://bqmaqhpaiwnhj"]
+[gd_scene load_steps=58 format=3 uid="uid://bqmaqhpaiwnhj"]
 
 [ext_resource type="Texture2D" uid="uid://cm3l10talihmm" path="res://assets/skeleton/skeleton1/enemies-skeleton1_attack.png" id="1_e5q6s"]
+[ext_resource type="Script" uid="uid://5ebvs4h50tw2" path="res://scenes/skeleton_1.gd" id="1_fl5xy"]
 [ext_resource type="Texture2D" uid="uid://dxhiqfpkdajqv" path="res://assets/skeleton/skeleton1/enemies-skeleton1_death.png" id="2_fl5xy"]
 [ext_resource type="Texture2D" uid="uid://bt5esuqdyv6cv" path="res://assets/skeleton/skeleton1/enemies-skeleton1_take_damage.png" id="3_t817h"]
 [ext_resource type="Texture2D" uid="uid://bauc1r5yl36g6" path="res://assets/skeleton/skeleton1/enemies-skeleton1_idle.png" id="4_elrh5"]
@@ -227,9 +228,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cpn38")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -369,22 +370,35 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_am5eg"]
 size = Vector2(27, 31)
 
-[node name="skeleton1" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_e5q6s"]
+radius = 95.005264
+
+[node name="skeleton1" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_fl5xy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.5, 10.5)
 shape = SubResource("RectangleShape2D_8c5jj")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="container" type="Node2D" parent="."]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="container"]
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_qg88u")
-animation = &"attack"
+animation = &"move"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="hurt_box" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurt_box"]
 position = Vector2(-3.5, 10.5)
 shape = SubResource("RectangleShape2D_am5eg")
+
+[node name="sight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sight"]
+position = Vector2(-5, 11)
+shape = SubResource("CircleShape2D_e5q6s")
+
+[connection signal="body_entered" from="sight" to="." method="_on_sight_body_entered"]
+[connection signal="body_exited" from="sight" to="." method="_on_sight_body_exited"]

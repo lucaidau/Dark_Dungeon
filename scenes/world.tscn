@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfrr7bfqkdf1g"]
+[gd_scene load_steps=8 format=3 uid="uid://cfrr7bfqkdf1g"]
 
 [ext_resource type="Texture2D" uid="uid://c7f2y56iu02su" path="res://assets/map/Dungeon_Tileset.png" id="1_k0juu"]
 [ext_resource type="Texture2D" uid="uid://c0i3wxqo3d5by" path="res://assets/map/demonstration.png" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://3722fdtq2n7x" path="res://scenes/player.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://bqmaqhpaiwnhj" path="res://scenes/skeleton_1.tscn" id="4_k0juu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71j4m"]
 texture = ExtResource("1_k0juu")
@@ -359,3 +360,6 @@ layer_0/tile_data = PackedInt32Array(0, 2, 0, 1, 65538, 0, 3, 196610, 0, 4, 2621
 
 [node name="player" parent="." instance=ExtResource("3_4wyf3")]
 position = Vector2(53, 56)
+
+[node name="skeleton1" parent="." instance=ExtResource("4_k0juu")]
+position = Vector2(267, 127)

@@ -11,6 +11,7 @@ var can_attack = true
 
 func _ready() -> void:
 	attack_range.monitoring = false
+	attack_range.visible = false
 
 func _physics_process(delta: float) -> void:
 	if can_attack and Input.is_action_just_pressed("attack"):
@@ -38,7 +39,9 @@ func attack() -> void:
 		is_attack = true
 		can_attack = false	
 		anim.play("attack")
-		attack_range.monitoring = true	
+		attack_range.visible = true
+		attack_range.monitoring = true
+		
 		await anim.animation_finished
 		attack_range.monitoring = false	
 		is_attack = false
